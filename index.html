@@ -5,29 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <title>Library App</title>
 </head>
 <body>
     <h1>LIBRARY</h1>
 
-    <form id ="form" name="form">
-        <input type="text"  name="title" placeholder="Title" >
-        <input type="text"  name="author" placeholder="Author">
-        <input type="number" name="pages" placeholder="Pages">
+    <div id="container">
+
+        <form id ="form" name="form">
+            <h2>New Book</h2>
+            <input type="text"  name="title" placeholder="Title" >
+            <input type="text"  name="author" placeholder="Author">
+            <input type="number" name="pages" placeholder="Pages">
+            
+            <label for="read_radio">Did you read the book?</label>        
+            <input type="radio" name="read" value="Yes">Yes</input>   
+            <input type="radio" name="read" value="No" checked>No</input>
+
+            <button type="reset" onclick="addBookToLibrary()">Add Book</button>
+            
+        </form>
+
         
-        <label for="read_radio">Did you read the book?</label>        
-        <input type="radio" name="read" value="Yes">Yes</input>   
-        <input type="radio" name="read" value="No" checked>No</input>
 
-        <button type="reset" onclick="addBookToLibrary()">Add Book</button>
-        
-    </form>
-
-    <div id="library">
-
+        <table id="books-list">
+            <thead id="book-requirements">
+            <tr>
+                <td>TITLE</td>
+                <td>AUTHOR</td>
+                <td>PAGES</td>
+                <td>READ</td>
+                <td>REMOVE</td>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
     </div>
 
 
+    
 
     <script src="javascript.js"></script>
 </body>

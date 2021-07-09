@@ -1,10 +1,88 @@
-#library {
-    background-color: rgb(163, 163, 163);
-    display: flex;
-
+body {
+  font-family: "Audiowide", sans-serif;
+  background-color: rgba(241, 241, 241, 0.972);  
 }
 
-#book {
+h1,h2 {
+  text-align: center;
+  background-color: rgb(203, 232, 241);
+}
+
+h1 {
+  border: solid black;
+  font-size: 70px;
+}
+
+#container {
+    display: flex;
+    padding: 1%;
+}
+
+#form {
+    display:flex;
+    flex-direction: column;
+    width: 15%;
+    background-color: rgb(203, 232, 241);
+    border: solid black;
+    
     
 }
 
+#form input {
+   
+    
+}
+
+#book-requirements {
+  background-color: rgb(163, 163, 163);
+    
+}
+
+#book-requirements tr{
+    font-size: larger;
+    font-weight: bold;
+    border: solid black;
+    text-align: center;
+}
+
+td{
+    border: solid black;
+    font-size: 20px;
+    text-align: center;
+    
+}
+
+
+#books-list {
+  width: 70%;
+  background-color: rgb(203, 232, 241);
+  
+  /* border-collapse: collapse;*/
+  
+
+}
+
+#books-list td {
+  padding: 25px;
+}
+
+#table-body {
+  background-color: blanchedalmond;
+}
+
+#book-requirements {
+  background-color: var(--blue);
+  color: var(--white);
+  
+}
+
+#book-requirements td{
+  font-size: 30px;
+}
+.book-info {
+  border-bottom: 2px dotted var(--blue);
+}
+.book-info i {
+  padding: 5px;
+  font-size: 20px;
+}

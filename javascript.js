@@ -28,24 +28,42 @@ function addBookToLibrary() { //This function creates a new book using the const
 }
 
 function viewLibraryDOM(){ // This function manipulates and updates the DOM
-  let library = document.getElementById("library");
-  library.innerHTML ="";
-  for (let i=0; i<myLibrary.length; i++){ //in this part we are creating a new div for each book and place it in the main library div
   
-    let div = document.createElement("div");  
-    div.innerText= myLibrary[i].title+ " " + myLibrary[i].author + " " + myLibrary[i].pages + "pgs Read: " + myLibrary[i].read;
-    div.className = "book";
-    let removeBtn = document.createElement("button");
-    removeBtn.innerText = "Remove";
-    removeBtn.className="removeBtn"; 
+  let library = document.getElementById("table-body");
+  library.innerHTML ="";
+  for (let i=0; i<myLibrary.length; i++){ //in this part we are creating the table with the right values position in their respective parent element  
+  
+    let entry = document.createElement("tr");  
+
+    let title = document.createElement("td");
+    title.innerText = myLibrary[i]["title"];
+    let author = document.createElement("td");
+    author.innerText =  myLibrary[i]["author"];
+    let pages = document.createElement("td");
+    pages.innerText = myLibrary[i]["pages"];
+    
+        
     
     let statusBtn = document.createElement("button");
     statusBtn.innerText="Change Status";
     statusBtn.className="statusBtn";
+    let rowBtn2 = document.createElement("td");
+    rowBtn2.innerText = myLibrary[i]["read"] + " ";
+    rowBtn2.appendChild(statusBtn);
 
-    div.appendChild(removeBtn);  //appending the buttons to the book/div so that after we can add event listener  
-    div.appendChild(statusBtn)
-    library.appendChild(div);
+    let removeBtn = document.createElement("button");
+    removeBtn.innerText = "Remove";
+    removeBtn.className="removeBtn"; 
+    let rowBtn1 = document.createElement("td");
+    rowBtn1.appendChild(removeBtn);
+
+    entry.appendChild(title)
+    entry.appendChild(author)
+    entry.appendChild(pages)
+    entry.appendChild(rowBtn2)
+    entry.appendChild(rowBtn1)
+    
+    library.appendChild(entry);
         
   }
 
