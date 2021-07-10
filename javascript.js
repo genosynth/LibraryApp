@@ -5,9 +5,18 @@ function Book(title, author, pages, read) { //Book Constructor
   this.author = author;
   this.pages = pages;
   this.read = read;
-  
+  this.dateAdded = Book.prototype.dateAdded();  
 }
 
+Book.prototype.dateAdded =function (){
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let yyyy = today.getFullYear();
+
+  today = dd + '/' + mm + '/' + yyyy;
+  return today;
+}
 
 
 function addBookToLibrary() { //This function creates a new book using the constructor and pushes the new book in the myLibrary[] array
@@ -24,11 +33,14 @@ function addBookToLibrary() { //This function creates a new book using the const
   let book = new Book(title, author, pages, read);
   
   myLibrary.push(book);
+  
+ 
+  
   viewLibraryDOM();
 }
 
 function viewLibraryDOM(){ // This function manipulates and updates the DOM
-  
+  loadLocalStorage();
   let library = document.getElementById("table-body");
   library.innerHTML ="";
   for (let i=0; i<myLibrary.length; i++){ //in this part we are creating the table with the right values position in their respective parent element  
@@ -41,20 +53,30 @@ function viewLibraryDOM(){ // This function manipulates and updates the DOM
     author.innerText =  myLibrary[i]["author"];
     let pages = document.createElement("td");
     pages.innerText = myLibrary[i]["pages"];
+    let dateOfBookAdded = document.createElement("td");
+    dateOfBookAdded.innerText = myLibrary[i].dateAdded;
     
         
     
     let statusBtn = document.createElement("button");
     statusBtn.innerText="Change Status";
+    
     statusBtn.className="statusBtn";
     let rowBtn2 = document.createElement("td");
     rowBtn2.innerText = myLibrary[i]["read"] + " ";
+    if (myLibrary[i].read =="Yes"){ // uses green color for read books and red color for unread books
+      rowBtn2.style["backgroundColor"]="lightgreen";
+    }
+    if (myLibrary[i].read =="No"){
+      rowBtn2.style["backgroundColor"]="red";
+    }
     rowBtn2.appendChild(statusBtn);
 
     let removeBtn = document.createElement("button");
     removeBtn.innerText = "Remove";
     removeBtn.className="removeBtn"; 
     let rowBtn1 = document.createElement("td");
+    rowBtn1.style["backgroundColor"]="rgb(203, 232, 241)"
     rowBtn1.appendChild(removeBtn);
 
     entry.appendChild(title)
@@ -62,6 +84,7 @@ function viewLibraryDOM(){ // This function manipulates and updates the DOM
     entry.appendChild(pages)
     entry.appendChild(rowBtn2)
     entry.appendChild(rowBtn1)
+    entry.appendChild(dateOfBookAdded)
     
     library.appendChild(entry);
         
@@ -71,6 +94,7 @@ function viewLibraryDOM(){ // This function manipulates and updates the DOM
   for (let i=0; i<buttons.length; i++){
     buttons[i].addEventListener("click", function() {
       myLibrary.splice(i, 1);
+      updateStorage();//this is used to clear local storage and saves the remainign books in the local storage to avoid gap holes qith indexes
       viewLibraryDOM();
     });
   }
@@ -87,4 +111,36 @@ function viewLibraryDOM(){ // This function manipulates and updates the DOM
 
 }
 
+function setToLocalStorage(){
+  for (book in myLibrary){
+    //console.log(myLibrary[book])
+    let x = JSON.stringify(myLibrary[book])
+    localStorage.setItem(book, x);
+    
+  }
+}
+
+function loadLocalStorage(){
+  
+  if (myLibrary.length>0){
+    return
+  }
+
+  if (localStorage.length>0){
+    myLibrary=[];
+    for (let i=0; i<localStorage.length; i++){
+      let obj = JSON.parse(localStorage[i]);
+      myLibrary.push(obj);
+    }
+  }
+}
+
+function updateStorage(){ //this is used when a users deletes a book, so that it clears localstorage and saves the remaining books in the local storagre
+    localStorage.clear();
+    setToLocalStorage();
+
+}
+
+
 viewLibraryDOM();
+window.onbeforeunload = setToLocalStorage;
