@@ -1,14 +1,26 @@
 let myLibrary = [];
 
-function Book(title, author, pages, read) { //Book Constructor
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.dateAdded = Book.prototype.dateAdded();  
-}
+class Book {
+  constructor (title, author, pages, read) { //Book Constructor
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.dateAdded = this.dateAdded(); 
+  }
 
-Book.prototype.dateAdded =function (){
+  dateAdded() {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+  
+    today = dd + '/' + mm + '/' + yyyy;
+    return today;
+  }
+   
+}
+/* Book.prototype.dateAdded =function (){
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, '0');
   let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -17,7 +29,7 @@ Book.prototype.dateAdded =function (){
   today = dd + '/' + mm + '/' + yyyy;
   return today;
 }
-
+*/
 
 function addBookToLibrary() { //This function creates a new book using the constructor and pushes the new book in the myLibrary[] array
   let form = document.getElementById("form");
